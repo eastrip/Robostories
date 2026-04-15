@@ -129,27 +129,51 @@
       color: var(--muted);
     }
 
-    .field input {
-      padding: 7px 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--glass);
-      color: var(--text);
-      outline: none;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      overflow: hidden;
     }
 
-    .field input::placeholder { color: var(--muted2); }
-
-    .field input:focus {
+    .input-wrap:focus-within {
       border-color: var(--border-focus);
       box-shadow: 0 0 0 3px var(--glow);
       background: rgba(10,15,30,0.7);
     }
+
+    .input-icon {
+      padding: 5px 10px;
+      font-size: 2rem;
+      line-height: 1;
+      flex-shrink: 0;
+      user-select: none;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .field input {
+      flex: 1;
+      padding: 7px 12px 7px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      outline: none;
+      min-width: 0;
+    }
+
+    .field input::placeholder { color: var(--muted2); }
 
     .row-2 {
       grid-column: 1 / -1;
@@ -173,6 +197,8 @@
       backdrop-filter: blur(14px);
     }
 
+    .random-field span:first-child { font-size: 2rem; line-height: 1; }
+
     .random-field .hint {
       font-size: 0.7rem;
       color: var(--muted);
@@ -180,27 +206,30 @@
       font-style: italic;
     }
 
-    /* ── FOOTER ── */
     footer {
-      padding: 10px 24px;
+      padding: 10px 0;
       border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: block;
       flex-shrink: 0;
-      flex-wrap: wrap;
-      gap: 8px;
       background: var(--glass2);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
 
-    .footer-hint { font-size: 0.7rem; color: var(--muted); }
-    .footer-actions { display: flex; gap: 8px; align-items: center; }
-    .sep { width: 1px; height: 20px; background: var(--border); }
+    .footer-inner {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+
+    .footer-hint { font-size: 0.7rem; color: var(--muted); white-space: nowrap; text-align: center; }
+    .footer-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; justify-content: flex-end; }
+    .sep { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
 
     .btn {
-      padding: 7px 16px;
+      padding: 12px 16px;
       font-family: 'Inter', sans-serif;
       font-size: 0.75rem;
       font-weight: 600;
@@ -212,6 +241,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      white-space: nowrap;
     }
 
     .btn-ghost {
@@ -222,6 +252,8 @@
     .btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text); }
 
     .btn-generate {
+      flex: 1;
+      justify-content: center;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #06060f;
       font-weight: 700;
@@ -257,32 +289,47 @@
   <div class="fields">
 
     <div class="field">
-      <label>🦸 Héros</label>
-      <input autocapitalize="none" id="choix_heros" type="text" placeholder="une petite sorcière, un dragon timide…"/>
+      <label>Héros</label>
+      <div class="input-wrap">
+        <span class="input-icon">👸🏼</span>
+        <input autocapitalize="none" id="choix_heros" type="text" placeholder="une petite sorcière, un dragon timide…"/>
+      </div>
     </div>
 
     <div class="field">
-      <label>🦄 Compagnon</label>
-      <input autocapitalize="none" id="choix_compagnon" type="text" placeholder="un lapin bavard, un robot rouillé…"/>
+      <label>Compagnon</label>
+      <div class="input-wrap">
+        <span class="input-icon">🦄</span>
+        <input autocapitalize="none" id="choix_compagnon" type="text" placeholder="un lapin bavard, un robot rouillé…"/>
+      </div>
     </div>
 
     <div class="field">
-      <label>😈 Antagoniste</label>
-      <input autocapitalize="none" id="choix_antagoniste" type="text" placeholder="un géant bougon, une reine de glace…"/>
+      <label>Antagoniste</label>
+      <div class="input-wrap">
+        <span class="input-icon">👻</span>
+        <input autocapitalize="none" id="choix_antagoniste" type="text" placeholder="un géant bougon, une reine de glace…"/>
+      </div>
     </div>
 
     <div class="field">
-      <label>🗺️ Lieu</label>
-      <input autocapitalize="none" id="choix_lieu" type="text" placeholder="une forêt enchantée, une ville dans les nuages…"/>
+      <label>Lieu</label>
+      <div class="input-wrap">
+        <span class="input-icon">🏰</span>
+        <input autocapitalize="none" id="choix_lieu" type="text" placeholder="une forêt enchantée, une ville dans les nuages…"/>
+      </div>
     </div>
 
     <div class="field full">
-      <label>🔮 Objet de l'intrigue</label>
-      <input autocapitalize="none" id="choix_objet" type="text" placeholder="une clé dorée, un livre magique…"/>
+      <label>Objet de l'intrigue</label>
+      <div class="input-wrap">
+        <span class="input-icon">🪎</span>
+        <input autocapitalize="none" id="choix_objet" type="text" placeholder="une clé dorée, un livre magique…"/>
+      </div>
     </div>
 
     <div class="field full">
-      <label>✨ Valeur transmise</label>
+      <label>Valeur transmise</label>
       <div class="random-field" id="random-display">
         <span>🎲</span>
         <span class="hint">Tirée au sort lors de la génération</span>
@@ -291,25 +338,33 @@
 
     <div class="row-2">
       <div class="field">
-        <label>🎂 Âge (ans)</label>
-        <input autocapitalize="none" id="age_enfant" type="number" min="1" max="18" placeholder="6"/>
+        <label>Âge (ans)</label>
+        <div class="input-wrap">
+          <span class="input-icon">🎂</span>
+          <input autocapitalize="none" id="age_enfant" type="number" min="1" max="18" placeholder="6"/>
+        </div>
       </div>
       <div class="field">
-        <label>⏱ Durée (min)</label>
-        <input autocapitalize="none" id="duree_histoire" type="number" min="1" max="60" placeholder="10"/>
+        <label>Durée (min)</label>
+        <div class="input-wrap">
+          <span class="input-icon">⏱</span>
+          <input autocapitalize="none" id="duree_histoire" type="number" min="1" max="60" placeholder="10"/>
+        </div>
       </div>
     </div>
 
   </div>
 
   <footer>
-    <div class="footer-hint" id="footer-hint">
-      Remplis les champs puis clique sur <strong style="color:var(--accent)">Générer</strong>
-    </div>
-    <div class="footer-actions">
-      <button class="btn btn-ghost" onclick="resetAll()">↺ Reset</button>
-      <div class="sep"></div>
-      <button class="btn btn-generate" id="generateBtn" onclick="generate()">🎲 Générer &amp; Copier</button>
+    <div class="footer-inner">
+      <div class="footer-hint" id="footer-hint">
+        Remplis les champs puis clique sur <strong style="color:var(--accent)">Générer</strong>
+      </div>
+      <div class="footer-actions">
+        <button class="btn btn-ghost" onclick="resetAll()">↺ Reset</button>
+        <div class="sep"></div>
+        <button class="btn btn-generate" id="generateBtn" onclick="generate()">Générer &amp; Copier</button>
+      </div>
     </div>
   </footer>
 
@@ -362,7 +417,7 @@
       document.getElementById('footer-hint').innerHTML =
         'Prompt copié\u00a0! Colle-le directement dans <strong style="color:var(--accent)">ChatGPT</strong>.';
       setTimeout(() => {
-        btn.innerHTML = '🎲 Générer &amp; Copier';
+        btn.innerHTML = 'Générer &amp; Copier';
         btn.classList.remove('copied');
       }, 2000);
     });
@@ -376,7 +431,7 @@
     document.getElementById('footer-hint').innerHTML =
       'Remplis les champs puis clique sur <strong style="color:var(--accent)">Générer</strong>';
     const btn = document.getElementById('generateBtn');
-    btn.innerHTML = '🎲 Générer &amp; Copier';
+    btn.innerHTML = 'Générer &amp; Copier';
     btn.classList.remove('copied');
   }
 </script>
